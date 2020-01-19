@@ -61,6 +61,17 @@ playerMesh.position.z=3;
 playerMesh.position.x=3;
 var player2 = new player('down', playerMesh);
 
+//testing followers
+var follower1 = new follower(player1);
+gameObjects.push(follower1);
+movingGameObjects.push(follower1);
+scene.add(follower1.mesh);
+
+//testing seekers
+var seeker1 = new seeker(player1);
+gameObjects.push(seeker1);
+movingGameObjects.push(seeker1);
+scene.add(seeker1.mesh);
 // Add players to Scene
 gameObjects.push(player1);
 gameObjects.push(player2);
@@ -68,22 +79,4 @@ scene.add( player2.mesh );
 
 //addsWalls from functions
 addWalls();
-
-
-// //Add walls to scene
-// var wall = function(x_start, x_stop,z_start,z_stop){
-//       var size_x = x_stop - x_start;
-//       var size_z = z_stop - z_start;
-
-//       var wall_geometry = new THREE.BoxGeometry(size_x , 1, size_z);
-//       var wall_material = new THREE.MeshBasicMaterial( { color: "#433Fa1" } );
-//       this.mesh = new THREE.Mesh( wall_geometry, wall_material );
-//       this.mesh.position.set(0.5 +x_start + size_x/2, 0.5, 0.5 + z_start + size_z/2);
-//       this.mesh.castShadow = true;
-//       this.mesh.receiveShadow = true;
-// }
-
-//   var wall = new wall(0, 20, -3, -1);
-//   scene.add( wall.mesh );
-//   gameObjects.push(wall);
   

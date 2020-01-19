@@ -1,5 +1,7 @@
 class player {
+    //TODO constructor shouldnt need mesh fix for class!
     constructor(direction, mesh) {
+        
     this.direction = direction;
     this.tag = 'player';
     this.lifes = 3;
@@ -111,6 +113,9 @@ class shot{
 class wall{
     constructor(x_start, x_stop,z_start,z_stop){
         this.tag = 'wall';
+        //making sure it´s done in right order
+        if(x_start>x_stop){var temp = x_stop; x_stop = x_start; x_start = temp; }
+        if(z_start>z_stop){ var temp = z_stop; z_stop = z_start; z_start = temp; }
 
         var size_x = x_stop - x_start;
         var size_z = z_stop - z_start;
@@ -161,5 +166,85 @@ class movingLight{
         this.light.position.z += this.speed*this.directionZ; 
      }
 }
+
+class follower {
+    constructor(victim) {
+    this.speed = 0.01;
+    this.tag = 'npc';
+    this.lifes = 1;
+    this.victim = victim;
+    var followerGeometry = new THREE.BoxGeometry( 1, 2, 1 );
+    var followerMaterial= new THREE.MeshStandardMaterial( { color: "#FF000" } );
+    var followerMesh = new THREE.Mesh( followerGeometry, followerMaterial );
+    followerMesh.castShadows = true;
+    followerMesh.material.color.set(0xFF0000);
+    followerMesh.position.y=1;
+    followerMesh.position.z=3;
+    followerMesh.position.x=3;
+
+    this.mesh = followerMesh;
+    this.mesh.castShadow=true;
+    this.mesh.receiveShadow=true;
+    }
+    
+    die(){
+      this.lifes--;
+      console.log('I am shot' + this.type + " lifes:"+ this.lifes)
+      if(this.lifes==0){remove_from_game(this)}
+    }
+
+    move(){
+        var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
+        var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
+        this.mesh.position.x -= deltaX*this.speed;
+        this.mesh.position.z -= deltaZ*this.speed;
+    }
+  }
+class seeker {
+    constructor(victim) {
+    this.up = false;
+    this.jumpSpeed = 0.05;
+    this.speed = 0.02;
+    this.tag = 'npc';
+    this.lifes = 1;
+    this.victim = victim;
+    var seekerGeometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
+    var seekerMaterial= new THREE.MeshStandardMaterial( { color: "#FF000" } );
+    var seekerMesh = new THREE.Mesh( seekerGeometry, seekerMaterial );
+    seekerMesh.castShadows = true;
+    seekerMesh.material.color.set(0xF0A0A0);
+    seekerMesh.position.y=1;
+    seekerMesh.position.z=3;
+    seekerMesh.position.x=3;
+
+    this.mesh = seekerMesh;
+    this.mesh.castShadow=true;
+    this.mesh.receiveShadow=true;
+    }
+    
+    die(){
+      this.lifes--;
+      console.log('I am shot' + this.type + " lifes:"+ this.lifes)
+      if(this.lifes==0){remove_from_game(this)}
+    }
+
+    move(){
+        var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
+        var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
+        this.mesh.position.x -= Math.sign(deltaX)*this.speed;
+        this.mesh.position.z -= Math.sign(deltaZ)*this.speed;
+        if(this.up){
+            this.mesh.position.y += this.jumpSpeed;
+            if(this.mesh.position.y>1.5){ this.up=false}
+
+        }
+        else{
+            this.mesh.position.y -= this.jumpSpeed;
+            if(this.mesh.position.y<0.5){ this.up=true}
+        }
+    }
+  }
+
+
 
 

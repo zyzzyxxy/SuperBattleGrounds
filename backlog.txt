@@ -1,6 +1,5 @@
 TODO
 --shoot rate
---cant go through walls
 --hud
 --animated characters
 --p2 playable
@@ -8,8 +7,11 @@ TODO
 --menus
 --lobby
 --pickups
+--npcs
+--player class fix it´s own mesh
 
 
 
 FIXED
 --mooving lights 
+--cant go through walls

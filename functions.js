@@ -7,7 +7,7 @@ function addWalls(){
     var wall1 = new wall(-14, 14, -12, -10);
     var wall2 = new wall(-14, 14, -2, -1);
     var wall3 = new wall(-16, -14, -14, 14);
-    var wall4 = new wall(14, 16, -14, 14);
+    var wall4 = new wall(16, 14, 14, -14);
     var wall5 = new wall(3, 5, 4, 14);
     
     walls = [];
