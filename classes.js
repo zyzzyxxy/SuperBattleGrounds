@@ -169,16 +169,17 @@ class movingLight{
 
 class follower {
     constructor(victim) {
+    this.rotationVariable = 0;
     this.speed = 0.01;
     this.tag = 'npc';
     this.lifes = 1;
     this.victim = victim;
-    var followerGeometry = new THREE.BoxGeometry( 1, 2, 1 );
+    var followerGeometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
     var followerMaterial= new THREE.MeshStandardMaterial( { color: "#FF000" } );
     var followerMesh = new THREE.Mesh( followerGeometry, followerMaterial );
     followerMesh.castShadows = true;
-    followerMesh.material.color.set(0xFF0000);
-    followerMesh.position.y=1;
+    followerMesh.material.color.set(0x0000FF);
+    followerMesh.position.y=3;
     followerMesh.position.z=3;
     followerMesh.position.x=3;
 
@@ -196,8 +197,18 @@ class follower {
     move(){
         var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
         var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
-        this.mesh.position.x -= deltaX*this.speed;
-        this.mesh.position.z -= deltaZ*this.speed;
+        var totDelta = Math.abs(deltaX) + Math.abs(deltaZ);
+        if(deltaX > 1 || deltaX < -1){
+            this.mesh.position.x -= deltaX*this.speed;
+        }
+        if(deltaZ > 1 || deltaZ < -1){
+            this.mesh.position.z -= deltaZ*this.speed;
+        }
+
+        this.mesh.position.x -= deltaX*this.speed + (totDelta/2)*Math.cos(this.rotationVariable)/50;
+        this.mesh.position.z -= deltaZ*this.speed + (totDelta/2)*Math.sin(this.rotationVariable)/50;
+        this.rotationVariable +=0.05*totDelta;
+
     }
   }
 class seeker {
@@ -213,9 +224,9 @@ class seeker {
     var seekerMesh = new THREE.Mesh( seekerGeometry, seekerMaterial );
     seekerMesh.castShadows = true;
     seekerMesh.material.color.set(0xF0A0A0);
-    seekerMesh.position.y=1;
-    seekerMesh.position.z=3;
-    seekerMesh.position.x=3;
+    seekerMesh.position.y=5;
+    seekerMesh.position.z=5;
+    seekerMesh.position.x=5;
 
     this.mesh = seekerMesh;
     this.mesh.castShadow=true;
