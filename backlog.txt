@@ -1,0 +1,15 @@
+TODO
+--shoot rate
+--cant go through walls
+--hud
+--animated characters
+--p2 playable
+--networking
+--menus
+--lobby
+--pickups
+
+
+
+FIXED
+--mooving lights 
