@@ -1,5 +1,4 @@
 TODO
---shoot rate
 --hud
 --animated characters
 --p2 playable
@@ -10,9 +9,12 @@ TODO
 --npcs
 --player class fix it´s own mesh
 --make walls don´t collide with each other
---make seekers advance in x-direction if blocked in z and vice versa
+--improve collisionhandle with a/b interchangable to avaoid code duplication
+
 
 
 FIXED
 --mooving lights 
 --cant go through walls
+--make seekers advance in x-direction if blocked in z and vice versa
+--shoot rate
