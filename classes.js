@@ -232,17 +232,21 @@ class seeker {
     this.lifes = 1;
     this.victim = victim;
     var seekerGeometry = new THREE.BoxGeometry( 0.8, 0.8, 0.8 );
-    var seekerMaterial= new THREE.MeshStandardMaterial( { color: "#FF000" } );
+    var seekerMaterial= new THREE.MeshStandardMaterial( { color: "#000000" } );
     var seekerMesh = new THREE.Mesh( seekerGeometry, seekerMaterial );
     seekerMesh.castShadows = true;
     seekerMesh.material.color.set(0xF0A0A0);
     seekerMesh.position.y=5;
-    seekerMesh.position.z=5;
-    seekerMesh.position.x=5;
+    seekerMesh.position.z=Math.floor(Math.random()*world_depth-5 - (world_depth-5)/2 + 2); //should prob check perfect values
+    seekerMesh.position.x=Math.floor(Math.random()*world_width-5 - (world_width-5)/2 + 2);
 
     this.mesh = seekerMesh;
     this.mesh.castShadow=true;
     this.mesh.receiveShadow=true;
+    while(collisionDetectionSingleObjectXY(gameObjects, this)){
+        this.mesh.position.z=Math.floor(Math.random()*world_depth-5 - (world_depth-5)/2 + 2);
+        this.mesh.position.x=Math.floor(Math.random()*world_width-5 - (world_width-5)/2 + 2);
+    }
     }
     
     die(){

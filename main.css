@@ -5,6 +5,7 @@
     left: 50px;
     top: 50px;
     background-color: azure;
+    opacity: 0.5;
     min-width: 200px;
     min-height: 200px;
 }

@@ -11,6 +11,16 @@ function collisiondetection(objects){
         }
     }
 }
+function collisionDetectionSingleObjectXY(objects, o){
+    for(var i =0; i<objects.length-1; i++){
+            
+                if(check_collision(objects[i], o)){
+                    return true;
+                
+            } 
+    }
+    return false;
+}
 
 function check_collision(a, b){
     //check x
@@ -18,6 +28,19 @@ function check_collision(a, b){
          //check y
          if(a.mesh.position.y + (a.mesh.geometry.parameters.height/2) > b.mesh.position.y - (b.mesh.geometry.parameters.height / 2) && a.mesh.position.y - a.mesh.geometry.parameters.height/2 < b.mesh.position.y + b.mesh.geometry.parameters.height /2){
          }
+             //check z
+             if(a.mesh.position.z + (a.mesh.geometry.parameters.depth/2) > b.mesh.position.z - (b.mesh.geometry.parameters.depth / 2) && a.mesh.position.z- a.mesh.geometry.parameters.depth/2 < b.mesh.position.z + b.mesh.geometry.parameters.depth /2){
+                 if(!(a instanceof wall || b instanceof wall)){
+                    console.log('collision! a:' + a.type  +  " b:" + b.type);
+                 }
+                    return true;
+
+             }
+     }
+ }
+ function check_collisionXZ(a, b){
+    //check x
+     if(a.mesh.position.x + (a.mesh.geometry.parameters.width/2) > b.mesh.position.x - (b.mesh.geometry.parameters.width / 2) && a.mesh.position.x - a.mesh.geometry.parameters.width/2 < b.mesh.position.x + b.mesh.geometry.parameters.width /2){
              //check z
              if(a.mesh.position.z + (a.mesh.geometry.parameters.depth/2) > b.mesh.position.z - (b.mesh.geometry.parameters.depth / 2) && a.mesh.position.z- a.mesh.geometry.parameters.depth/2 < b.mesh.position.z + b.mesh.geometry.parameters.depth /2){
                  if(!(a instanceof wall || b instanceof wall)){

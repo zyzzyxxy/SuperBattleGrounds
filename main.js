@@ -72,7 +72,7 @@ var render = function () {
   updateMovables();
   gameTime = Math.round((Date.now() - gameStartTime)/100)/10;
   firststring = gameTime;
-  displayInfo(firststring + '\n' + secondstring + '\n' + thirdstring);
+  displayInfo(firststring + '<br>' + secondstring + '<br>' + thirdstring);
   spawnStuff();
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
