@@ -85,6 +85,7 @@ class shot{
     constructor(position, direction){
         this.direction = direction;
         this.tag = 'shot';
+        this.type = 'shot';
 
 
         this.speed = 0.2;
@@ -116,6 +117,7 @@ class shot{
             this.mesh.position.x+=this.speed;
     }
     die(){
+        remove_from_game(this);
         console.log('i am dead ' + this.type);
       }
 }
@@ -226,9 +228,10 @@ class seeker {
     this.jumpSpeed = 0.05;
     this.speed = 0.02;
     this.tag = 'npc';
+    this.type = 'seeker';
     this.lifes = 1;
     this.victim = victim;
-    var seekerGeometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
+    var seekerGeometry = new THREE.BoxGeometry( 0.8, 0.8, 0.8 );
     var seekerMaterial= new THREE.MeshStandardMaterial( { color: "#FF000" } );
     var seekerMesh = new THREE.Mesh( seekerGeometry, seekerMaterial );
     seekerMesh.castShadows = true;
@@ -244,15 +247,20 @@ class seeker {
     
     die(){
       this.lifes--;
-      console.log('I am shot' + this.type + " lifes:"+ this.lifes)
+      console.log('I am shot ' + this.type + " lifes:"+ this.lifes)
       if(this.lifes==0){remove_from_game(this)}
     }
-
-    move(){
+    moveX(){        
         var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
-        var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
         this.mesh.position.x -= Math.sign(deltaX)*this.speed;
+    }
+    moveZ(){
+        var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
         this.mesh.position.z -= Math.sign(deltaZ)*this.speed;
+    }
+    move(){
+        this.moveX();
+        this.moveZ();
         if(this.up){
             this.mesh.position.y += this.jumpSpeed;
             if(this.mesh.position.y>1.5){ this.up=false}
@@ -260,14 +268,20 @@ class seeker {
         }
         else{
             this.mesh.position.y -= this.jumpSpeed;
-            if(this.mesh.position.y<0.5){ this.up=true}
+            if(this.mesh.position.y<0){ this.up=true}
         }
     }
-    moveReverse(){
+    moveReverseX(){
         var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
-        var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
         this.mesh.position.x += Math.sign(deltaX)*this.speed;
+    }
+    moveReverseZ(){
+        var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
         this.mesh.position.z += Math.sign(deltaZ)*this.speed;
+    }
+    moveReverse(){
+        this.moveReverseX()
+        this.moveReverseZ()
     }
   }
 

@@ -96,15 +96,11 @@ function displayInfo(text){
     document.getElementById('info').innerHTML = text;
 }
 function spawnStuff(){
-    thirdstring = lastSpawnedSeeker + 5;
     if(lastSpawnedSeeker + seekerSpawnInterval < gameTime ){
         spawnSeeker();
-        secondstring = 'True';
         lastSpawnedSeeker = gameTime;
     }
-    else{
-        secondstring = 'False';
-    }
+   
 }
 function spawnSeeker(){
     let seekr = new seeker(player1);
