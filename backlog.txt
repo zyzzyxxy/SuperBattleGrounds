@@ -9,7 +9,8 @@ TODO
 --pickups
 --npcs
 --player class fix it´s own mesh
-
+--make walls don´t collide with each other
+--make seekers advance in x-direction if blocked in z and vice versa
 
 
 FIXED

@@ -68,10 +68,14 @@ movingGameObjects.push(follower1);
 scene.add(follower1.mesh);
 
 //testing seekers
-var seeker1 = new seeker(player1);
-gameObjects.push(seeker1);
-movingGameObjects.push(seeker1);
-scene.add(seeker1.mesh);
+// var seeker1 = new seeker(player1);
+// gameObjects.push(seeker1);
+// movingGameObjects.push(seeker1);
+// scene.add(seeker1.mesh);
+//spawndSeeker();
+//spawndSeeker();
+
+
 // Add players to Scene
 gameObjects.push(player1);
 gameObjects.push(player2);

@@ -5,9 +5,24 @@
 
 var movingGameObjects = []
 var gameObjects = []
-var world_width=60 ;
-var world_depth=40;
-var world_height=40;
+let gameTime = 0;
+let gameStartTime = Date.now();
+
+//for seekers
+let lastSpawnedSeeker = 0;
+let seekerSpawnInterval = 5;
+
+const world_width=60 ;
+const world_depth=40;
+const world_height=40;
+
+
+
+//Just for debugging
+var firststring;
+var secondstring;
+var thirdstring;
+
 // Create an empty scene
 var scene = new THREE.Scene();
 scene.background= new THREE.Color('blue');
@@ -51,30 +66,14 @@ document.write('<script type="text/javascript" src="startingobjects.js" ></scrip
 document.write('<script type="text/javascript" src="eventhandlers.js" ></script>');
 
 
-function updateMovables(){
-    //must make move function in objects for god´s sake
-    for(var i=0; i< movingGameObjects.length; i++){
-        movingGameObjects[i].move();
-        // var speed = movingGameObjects[i].speed;
-        
-        // if(movingGameObjects[i].direction=='up'){
-        //     movingGameObjects[i].mesh.position.z-=speed;
-        // }
-        // if(movingGameObjects[i].direction=='down')
-        //     movingGameObjects[i].mesh.position.z+=speed;
-        // if(movingGameObjects[i].direction=='left')
-        //     movingGameObjects[i].mesh.position.x-=speed;
-        // if(movingGameObjects[i].direction=='right')
-        //     movingGameObjects[i].mesh.position.x+=speed;
-    }
-    checkPositionInWorld();
-    collisiondetection(this.gameObjects);
-}
 // Render Loop
 var render = function () {
   requestAnimationFrame( render );
   updateMovables();
- 
+  gameTime = Math.round((Date.now() - gameStartTime)/100)/10;
+  firststring = gameTime;
+  displayInfo(firststring + '\n' + secondstring + '\n' + thirdstring);
+  spawnStuff();
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
   cameraControl();

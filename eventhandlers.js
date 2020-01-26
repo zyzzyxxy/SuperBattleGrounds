@@ -5,7 +5,8 @@ document.addEventListener('keydown', function(event){
     else if (event.key=='a'){player1.move('left');}
     
     if (event.key == 'Enter'){
-        shoot(player1.mesh.position, player1.direction);
+        //shoot(player1.mesh.position, player1.direction);
+        player1.shoot();
     }
 
     //Camera controls for troubleshoot 
@@ -25,18 +26,4 @@ document.addEventListener('keydown', function(event){
 
   
 } );
-
-
-
-
-
-function shoot(position, direction){
-    var pshot = new shot(position, direction);
-    //console.log(pshot)
-    movingGameObjects.push(pshot);
-    gameObjects.push(pshot);
-    console.log(gameObjects);
-    scene.add(pshot.mesh);
-
-}
 

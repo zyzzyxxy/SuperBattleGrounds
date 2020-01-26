@@ -4,10 +4,10 @@ function remove_from_game(object){
     movingGameObjects.splice(movingGameObjects.lastIndexOf(object), 1);
 }
 function addWalls(){
-    var wall1 = new wall(-14, 14, -12, -10);
-    var wall2 = new wall(-14, 14, -2, -1);
-    var wall3 = new wall(-16, -14, -14, 14);
-    var wall4 = new wall(16, 14, 14, -14);
+    var wall1 = new wall(0, world_width+1, world_depth/2, 1+ world_depth/2);
+    var wall2 = new wall(0, world_width+1, -world_depth/2, -1 -world_depth/2);
+    var wall3 = new wall(world_width/2, 1+world_width/2, 0, world_depth);
+    var wall4 = new wall(-world_width/2, 1-world_width/2, 0, world_depth);
     var wall5 = new wall(3, 5, 4, 14);
     
     walls = [];
@@ -45,7 +45,20 @@ function checkPositionInWorld(){
             }
     }
 }
-
+function updateMovables(){
+    //must make move function in objects for god´s sake
+    for(var i=0; i< movingGameObjects.length; i++){
+        movingGameObjects[i].move();
+    }
+    for(var i=0; i< gameObjects.length; i++){
+        if(gameObjects[i] instanceof player){
+            gameObjects[i].update();
+        }
+    }
+    
+    checkPositionInWorld();
+    collisiondetection(this.gameObjects);
+}
 function getOpositeDirection(direction){
     if(direction=='up'){
         return 'down';
@@ -69,4 +82,33 @@ function cameraControl(){
     detlaZ = player1.mesh.position.z +10 - camera.position.z;
     camera.position.x += detlaX*0.01;
     camera.position.z += detlaZ*0.01;
+}
+function shoot(position, direction){
+    var pshot = new shot(position, direction);
+    //console.log(pshot)
+    movingGameObjects.push(pshot);
+    gameObjects.push(pshot);
+    console.log(gameObjects);
+    scene.add(pshot.mesh);
+}
+
+function displayInfo(text){
+    document.getElementById('info').innerHTML = text;
+}
+function spawnStuff(){
+    thirdstring = lastSpawnedSeeker + 5;
+    if(lastSpawnedSeeker + seekerSpawnInterval < gameTime ){
+        spawnSeeker();
+        secondstring = 'True';
+        lastSpawnedSeeker = gameTime;
+    }
+    else{
+        secondstring = 'False';
+    }
+}
+function spawnSeeker(){
+    let seekr = new seeker(player1);
+    gameObjects.push(seekr);
+    movingGameObjects.push(seekr);
+    scene.add(seekr.mesh);
 }

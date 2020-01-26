@@ -7,17 +7,21 @@
     body { margin: 0; }
     canvas { width: 100%; height: 100% }
   </style>
-  <!--  Three.js CDN  -->
+  <link rel="stylesheet" type="text/css" href="main.css">
+<!--  Three.js CDN  -->
   <script src="js/three.js"></script>
 </head>
 <body>
   <!--  Our code  -->
   <div class='hud'></div>
-  <script src="collisiondetection.js"></script>  
-  <script src="functions.js"></script>
-  <script src="classes.js"></script>
-  <script src="main.js"></script>
+  <div class='gameWindow'>
+    <script src="collisiondetection.js"></script>  
+    <script src="functions.js"></script>
+    <script src="classes.js"></script>
+    <script src="main.js"></script>
+  </div>
   <!-- <script src="test.js"></script> -->
+  <div class="debugInfo" id="info">Info</div>
 </body>
 <style>
 

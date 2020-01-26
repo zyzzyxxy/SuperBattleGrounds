@@ -1,7 +1,8 @@
 class player {
     //TODO constructor shouldnt need mesh fix for class!
     constructor(direction, mesh) {
-        
+    this.shootRate = .2;
+    this.lastShot = 0;
     this.direction = direction;
     this.tag = 'player';
     this.lifes = 3;
@@ -68,6 +69,15 @@ class player {
         this.move(direction);
         this.move(direction);
     }
+    update(){
+        this.lastShot += 0.01;
+    }
+    shoot(){
+        if(this.lastShot>= this.shootRate){
+            shoot(this.mesh.position, this.direction);
+            this.lastShot = 0;
+        }
+    }
   }
 
 class shot{
@@ -77,7 +87,7 @@ class shot{
         this.tag = 'shot';
 
 
-        this.speed = 0.1;
+        this.speed = 0.2;
         var shot_geometry = new THREE.BoxGeometry( .3, .3, .3 );
         var shot_material = new THREE.MeshBasicMaterial( { color: "#00aa00" } );
         this.mesh = new THREE.Mesh( shot_geometry, shot_material );
@@ -204,11 +214,10 @@ class follower {
         if(deltaZ > 1 || deltaZ < -1){
             this.mesh.position.z -= deltaZ*this.speed;
         }
-
+        if(totDelta<1 && totDelta > -1){totDelta=1;}
         this.mesh.position.x -= deltaX*this.speed + (totDelta/2)*Math.cos(this.rotationVariable)/50;
         this.mesh.position.z -= deltaZ*this.speed + (totDelta/2)*Math.sin(this.rotationVariable)/50;
-        this.rotationVariable +=0.05*totDelta;
-
+        this.rotationVariable +=0.1*totDelta/2;
     }
   }
 class seeker {
@@ -253,6 +262,12 @@ class seeker {
             this.mesh.position.y -= this.jumpSpeed;
             if(this.mesh.position.y<0.5){ this.up=true}
         }
+    }
+    moveReverse(){
+        var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
+        var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
+        this.mesh.position.x += Math.sign(deltaX)*this.speed;
+        this.mesh.position.z += Math.sign(deltaZ)*this.speed;
     }
   }
 

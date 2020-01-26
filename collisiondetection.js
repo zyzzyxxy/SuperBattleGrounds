@@ -8,10 +8,8 @@ function collisiondetection(objects){
             }
         }
     }
-    
-   
-
 }
+
 function check_collision(a, b){
     //check x
      if(a.mesh.position.x + (a.mesh.geometry.parameters.width/2) > b.mesh.position.x - (b.mesh.geometry.parameters.width / 2) && a.mesh.position.x - a.mesh.geometry.parameters.width/2 < b.mesh.position.x + b.mesh.geometry.parameters.width /2){
@@ -35,6 +33,10 @@ function check_collision(a, b){
                 if(a instanceof wall){
                     if(b instanceof shot){remove_from_game(b)}
                     if(b instanceof player){b.moveBack(b.direction)}
+                    if(b instanceof seeker){b.moveReverse()}
+                }
+                if(a instanceof seeker){
+                    if(b instanceof wall){a.moveReverse()}
                 }
 
                  return true;
