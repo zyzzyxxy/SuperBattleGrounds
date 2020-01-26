@@ -1,11 +1,12 @@
 class player {
     //TODO constructor shouldnt need mesh fix for class!
     constructor(direction, mesh) {
-    this.shootRate = .2;
+    this.shootRate = 500;
     this.lastShot = 0;
     this.direction = direction;
     this.tag = 'player';
     this.lifes = 3;
+    this.isShooting = false;
 
     this.mesh = mesh;
     this.mesh.castShadow=true;
@@ -70,13 +71,21 @@ class player {
         this.move(direction);
     }
     update(){
-        this.lastShot += 0.01;
+        // if(Date.now() > (this.lastShot+this.shootRate) && this.isShooting){
+        //     this.shoot()
+        //     this.lastShot = Date.now();
+        // }
     }
     shoot(){
-        if(this.lastShot>= this.shootRate){
+        // if(this.lastShot>= this.shootRate){
+        //     shoot(this.mesh.position, this.direction);
+        //     this.lastShot = 0;
+        // }
+        if(Date.now() > (this.lastShot+this.shootRate)){
             shoot(this.mesh.position, this.direction);
-            this.lastShot = 0;
+            this.lastShot = Date.now();
         }
+
     }
   }
 
@@ -88,7 +97,7 @@ class shot{
         this.type = 'shot';
 
 
-        this.speed = 0.2;
+        this.speed = 0.5;
         var shot_geometry = new THREE.BoxGeometry( .3, .3, .3 );
         var shot_material = new THREE.MeshBasicMaterial( { color: "#00aa00" } );
         this.mesh = new THREE.Mesh( shot_geometry, shot_material );
@@ -104,6 +113,7 @@ class shot{
             this.mesh.position.x-=1;
         if(direction=='right')
             this.mesh.position.x+=1;
+        this.move();
     }
     move(){
         if(this.direction=='up'){

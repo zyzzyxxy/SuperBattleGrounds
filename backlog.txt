@@ -11,7 +11,8 @@ TODO
 --make walls don´t collide with each other
 --improve collisionhandle with a/b interchangable to avaoid code duplication
 
-
+BUGS
+--Seekers freeze after killing p2
 
 FIXED
 --mooving lights 

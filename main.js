@@ -70,7 +70,7 @@ document.write('<script type="text/javascript" src="eventhandlers.js" ></script>
 var render = function () {
   requestAnimationFrame( render );
   updateMovables();
-  gameTime = Math.round((Date.now() - gameStartTime)/100)/10;
+  gameTime = Math.round((Date.now() - gameStartTime)/10)/100; //gametime with 2 decimals
   firststring = gameTime;
   displayInfo(firststring + '<br>' + secondstring + '<br>' + thirdstring);
   spawnStuff();
