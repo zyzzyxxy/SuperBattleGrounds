@@ -73,7 +73,7 @@ scene.add(follower1.mesh);
 // movingGameObjects.push(seeker1);
 // scene.add(seeker1.mesh);
 //spawndSeeker();
-//spawndSeeker();
+spawnSeeker();
 
 
 // Add players to Scene

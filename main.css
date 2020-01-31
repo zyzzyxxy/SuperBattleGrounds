@@ -8,4 +8,22 @@
     opacity: 0.5;
     min-width: 200px;
     min-height: 200px;
+    left: 50%;
+}
+.hud{
+    border-style: double;
+    font-size: 40px;
+    position: absolute;
+    top: 50px;
+    background-color: azure;
+    opacity: 0.5;
+    min-width: 200px;
+    min-height: 200px;
+}
+#p1hud{
+    left: 0%;
+
+}
+#p2hud{
+    left: 85%;
 }

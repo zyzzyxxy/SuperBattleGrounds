@@ -6,7 +6,7 @@ document.addEventListener('keydown', function(event){
     
     if (event.key == 'Enter'){
         //shoot(player1.mesh.position, player1.direction);
-       // player1.isShooting = true;
+       //s player1.isShooting = true;
         player1.shoot();
     }
 

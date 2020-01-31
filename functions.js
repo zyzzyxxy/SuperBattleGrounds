@@ -85,7 +85,6 @@ function cameraControl(){
 }
 function shoot(position, direction){
     var pshot = new shot(position, direction);
-    //console.log(pshot)
     movingGameObjects.push(pshot);
     gameObjects.push(pshot);
     console.log(gameObjects);
@@ -94,6 +93,12 @@ function shoot(position, direction){
 
 function displayInfo(text){
     document.getElementById('info').innerHTML = text;
+}
+function displayP1HUD(text){
+    document.getElementById('p1hud').innerHTML = text;
+}
+function displayP2HUD(text){
+    document.getElementById('p2hud').innerHTML = text;
 }
 function spawnStuff(){
     if(lastSpawnedSeeker + seekerSpawnInterval < gameTime ){
@@ -104,6 +109,7 @@ function spawnStuff(){
 }
 function spawnSeeker(){
     let seekr = new seeker(player1);
+    
     gameObjects.push(seekr);
     movingGameObjects.push(seekr);
     scene.add(seekr.mesh);

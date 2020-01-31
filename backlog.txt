@@ -1,21 +1,26 @@
 TODO
---hud
 --animated characters
 --p2 playable
 --networking
 --menus
 --lobby
 --pickups
---npcs
 --player class fix it´s own mesh
 --make walls don´t collide with each other
---improve collisionhandle with a/b interchangable to avaoid code duplication
 
 BUGS
 --Seekers freeze after killing p2
+--Seekers collisionhandle on spawn doesnt work, commented in seekers class
+
+IN PROGRESS
+--hud
 
 FIXED
 --mooving lights 
 --cant go through walls
 --make seekers advance in x-direction if blocked in z and vice versa
 --shoot rate
+--npcs
+--improve collisionhandle with a/b interchangable to avaoid code duplication
+
+

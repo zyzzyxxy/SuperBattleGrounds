@@ -5,18 +5,17 @@ function collisiondetection(objects){
         for(var j = i+1; j<objects.length; j++){
             if(i!=j){
                 if(check_collision(objects[i], objects[j])){
-                    handleCollision(objects[i], objects[j]);
+                    if(!handleCollision(objects[i], objects[j]))
+                        handleCollision(objects[j], objects[i]);
                 }   
             }
         }
     }
 }
-function collisionDetectionSingleObjectXY(objects, o){
+function collisionDetectionSingleObjectXZ(objects, o){
     for(var i =0; i<objects.length-1; i++){
-            
-                if(check_collision(objects[i], o)){
+                if(check_collisionXZ(objects[i], o)){
                     return true;
-                
             } 
     }
     return false;
@@ -53,20 +52,21 @@ function check_collision(a, b){
  }
 
  function handleCollision(a,b){
+    let collisionHandled = false; //for checking if necessary to recall with a <-> b
     if(a instanceof shot){
-        if(b instanceof player){b.die();}
-        if(b instanceof seeker){b.die(); a.die();}
+        if(b instanceof player){b.die(); collisionHandled = true;}
+        if(b instanceof seeker){b.die(); a.die();collisionHandled = true;}
     } 
     if(a instanceof player){
-        if(b instanceof shot){a.die(); remove_from_game(b)}
+        if(b instanceof shot){a.die(); remove_from_game(b);collisionHandled = true;}
         if(b instanceof player){
-            a.bounceBack(); b.bounceTo(a.direction);   
+            a.bounceBack(); b.bounceTo(a.direction); collisionHandled = true;  
         }
-        if(b instanceof wall){a.moveBack(a.direction)}
+        if(b instanceof wall){a.moveBack(a.direction);collisionHandled = true;}
     } 
     if(a instanceof wall){
-        if(b instanceof shot){remove_from_game(b)}
-        if(b instanceof player){b.moveBack(b.direction)}
+        if(b instanceof shot){remove_from_game(b);collisionHandled = true;}
+        if(b instanceof player){b.moveBack(b.direction);collisionHandled = true;}
         if(b instanceof seeker){
             b.moveReverse()
             b.moveX()
@@ -77,23 +77,26 @@ function check_collision(a, b){
             if(check_collision(a,b)){
                 b.moveReverseZ();
             }
+            collisionHandled = true;
         }
     }
     if(a instanceof seeker){
-        if(b instanceof seeker){b.moveReverse();}
-        if(b instanceof shot){a.die(); b.die();}
-        if(b instanceof wall){
-            a.moveReverse()
-            a.moveX()
-            if(check_collision(a,b)){
-                a.moveReverseX();
-            }
-            a.moveZ()
-            if(check_collision(a,b)){
-                a.moveReverseZ();
-            }
-        }
+        if(b instanceof seeker){b.moveReverse();collisionHandled = true;}
+        //if(b instanceof shot){a.die(); b.die();collisionHandled = true;}
+        // if(b instanceof wall){
+        //     a.moveReverse()
+        //     a.moveX()
+        //     if(check_collision(a,b)){
+        //         a.moveReverseX();
+        //     }
+        //     a.moveZ()
+        //     if(check_collision(a,b)){
+        //         a.moveReverseZ();
+        //     }
+        //     collisionHandled = true;
+        // }
     }
+   return collisionHandled;
  }
 
 //export {collisiondetection}; // a list of exported variables

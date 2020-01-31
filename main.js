@@ -59,6 +59,7 @@ cube.castShadow = true;
 // Add cube to Scene
 scene.add( cube );
 
+//todo make this better
 //add other stuff
 document.write('<script type="text/javascript" src="startingobjects.js" ></script>');
 
@@ -73,6 +74,8 @@ var render = function () {
   gameTime = Math.round((Date.now() - gameStartTime)/10)/100; //gametime with 2 decimals
   firststring = gameTime;
   displayInfo(firststring + '<br>' + secondstring + '<br>' + thirdstring);
+  displayP1HUD('PLAYER1' + '<br>' + player1.lifes + '<br>' + player1.lastShot + '<br>' + player1.direction);
+  displayP2HUD('PLAYER2' + '<br>' + player2.lifes + '<br>' + player2.lastShot + '<br>' + player2.direction);
   spawnStuff();
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;

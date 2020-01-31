@@ -241,8 +241,8 @@ class seeker {
     this.type = 'seeker';
     this.lifes = 1;
     this.victim = victim;
-    var seekerGeometry = new THREE.BoxGeometry( 0.8, 0.8, 0.8 );
-    var seekerMaterial= new THREE.MeshStandardMaterial( { color: "#000000" } );
+    var seekerGeometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
+    var seekerMaterial= new THREE.MeshStandardMaterial();
     var seekerMesh = new THREE.Mesh( seekerGeometry, seekerMaterial );
     seekerMesh.castShadows = true;
     seekerMesh.material.color.set(0xF0A0A0);
@@ -253,10 +253,10 @@ class seeker {
     this.mesh = seekerMesh;
     this.mesh.castShadow=true;
     this.mesh.receiveShadow=true;
-    while(collisionDetectionSingleObjectXY(gameObjects, this)){
-        this.mesh.position.z=Math.floor(Math.random()*world_depth-5 - (world_depth-5)/2 + 2);
-        this.mesh.position.x=Math.floor(Math.random()*world_width-5 - (world_width-5)/2 + 2);
-    }
+        // while(collisionDetectionSingleObjectXZ(gameObjects, this)){
+        //     this.mesh.position.z=Math.floor(Math.random()*world_depth-5 - (world_depth-5)/2 + 2);
+        //     this.mesh.position.x=Math.floor(Math.random()*world_width-5 - (world_width-5)/2 + 2);
+        // }
     }
     
     die(){
@@ -282,7 +282,7 @@ class seeker {
         }
         else{
             this.mesh.position.y -= this.jumpSpeed;
-            if(this.mesh.position.y<0){ this.up=true}
+            if(this.mesh.position.y<0.5){ this.up=true}
         }
     }
     moveReverseX(){
