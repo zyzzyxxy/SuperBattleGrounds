@@ -8,7 +8,7 @@ document.addEventListener('keydown', function(event){
         player1.shoot('basic');
     }
     if (event.key == 'Shift'){
-        player1.shoot('basic');
+        player1.shoot('homing');
     }
 
     //Camera controls for troubleshoot 

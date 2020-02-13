@@ -2,11 +2,16 @@ class player {
     //TODO constructor shouldnt need mesh fix for class!
     constructor(direction, mesh) {
     this.shootRate = 500;
+    this.shootRateHoming = 1000;
     this.lastShot = 0;
+    this.lastHoming = 0;
     this.direction = direction;
     this.tag = 'player';
     this.lifes = 3;
     this.isShooting = false;
+    this.homingMissileCount = 3;
+
+    this.choosenVictim;
 
     this.mesh = mesh;
     this.mesh.castShadow=true;
@@ -77,14 +82,15 @@ class player {
         // }
     }
     shoot(type){
+        console.log(type);
 
         if(type == 'basic' && Date.now() > (this.lastShot+this.shootRate)){
             shoot(this.mesh.position, this.direction, this);
             this.lastShot = Date.now();
         }
-        else if(type == 'homing' && Date.now() > (this.lastShot+this.shootRate)){
-            shoot(this.mesh.position, this.direction, this);
-            this.lastShot = Date.now();
+        else if(type == 'homing' && Date.now() > (this.lastHoming+this.shootRateHoming)){
+            shootHoming(this.mesh.position, this.direction, this, this.choosenVictim);
+            this.lastHoming = Date.now();
         }
 
     }
@@ -131,36 +137,41 @@ class homingMissile{
         this.type = 'shot';
         this.firedBy = shooterId;
         this.victim = victim;
+        this.isLaunching = true;
+        this.homingHeight = 7;
 
 
-        this.speed = 0.5;
-        var shot_geometry = new THREE.BoxGeometry( .3, .3, .3 );
-        var shot_material = new THREE.MeshBasicMaterial( { color: "#00aa00" } );
+        this.speed = 0.1;
+        var shot_geometry = new THREE.BoxGeometry( 1.5, .4, .4 );
+        var shot_material = new THREE.MeshBasicMaterial( { color: "#FFa000" } );
         this.mesh = new THREE.Mesh( shot_geometry, shot_material );
         this.mesh.position.set(position.x, 0.5, position.z);
         this.mesh.castShadow = true;
         this.mesh.receiveShadow = true;
 
-        // if(direction=='up')
-        //     this.mesh.position.z-=1;
-        // if(direction=='down')
-        //     this.mesh.position.z+=1;
-        // if(direction=='left')
-        //     this.mesh.position.x-=1;
-        // if(direction=='right')
-        //     this.mesh.position.x+=1;
-       // this.move();
     }
     move(){
-        if(this.direction=='up'){
-            this.mesh.position.z-=this.speed;
+        if(this.isLaunching){
+            this.mesh.position.y+=this.speed;
+            if(this.mesh.position.y > this.homingHeight){
+                this.isLaunching = false;
+            }
         }
-        if(this.direction=='down')
-            this.mesh.position.z+=this.speed;
-        if(this.direction=='left')
-            this.mesh.position.x-=this.speed;
-        if(this.direction=='right')
-            this.mesh.position.x+=this.speed;
+
+
+        if(!this.isLaunching){
+            //moveY
+            var deltaY = this.mesh.position.y - this.victim.mesh.position.y;
+            this.mesh.position.y -= Math.sign(deltaY)*this.speed;
+
+                    //moveX
+                    var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
+                    this.mesh.position.x -= Math.sign(deltaX)*this.speed;
+                //moveZ
+                    var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
+                    this.mesh.position.z -= Math.sign(deltaZ)*this.speed;a
+        }
+        
     }
     die(){
         remove_from_game(this);

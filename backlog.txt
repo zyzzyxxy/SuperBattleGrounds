@@ -8,11 +8,14 @@ TODO
 --player class fix it´s own mesh
 --make walls don´t collide with each other
 --shots starts from player but cannot kill self
+--Seeker missiles should move in x y z with respect to deltas against victim
+
 
 BUGS
 --Seekers freeze after killing p2 or p1 or another seeker dies... 
 --Something wrong with not removing graiphics but removing from moving array..
 --Seekers collisionhandle on spawn doesnt work, commented in seekers class
+--Fix Shadows, now they come and go...
 
 IN PROGRESS
 --hud

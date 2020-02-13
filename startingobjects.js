@@ -61,6 +61,8 @@ playerMesh.position.z=3;
 playerMesh.position.x=3;
 var player2 = new player('down', playerMesh);
 
+player1.choosenVictim = player2;
+
 //testing followers
 var follower1 = new follower(player1);
 gameObjects.push(follower1);

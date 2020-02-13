@@ -90,6 +90,13 @@ function shoot(position, direction, shooterId){
     console.log(gameObjects);
     scene.add(pshot.mesh);
 }
+function shootHoming(position, direction, shooterId, victim){
+    var pshot = new homingMissile(position, direction, shooterId, victim);
+    movingGameObjects.push(pshot);
+    gameObjects.push(pshot);
+    console.log(gameObjects);
+    scene.add(pshot.mesh);
+}
 
 function displayInfo(text){
     document.getElementById('info').innerHTML = text;
