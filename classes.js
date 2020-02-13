@@ -160,16 +160,18 @@ class homingMissile{
 
 
         if(!this.isLaunching){
-            //moveY
+            var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
             var deltaY = this.mesh.position.y - this.victim.mesh.position.y;
-            this.mesh.position.y -= Math.sign(deltaY)*this.speed;
+            var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
 
-                    //moveX
-                    var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
-                    this.mesh.position.x -= Math.sign(deltaX)*this.speed;
-                //moveZ
-                    var deltaZ = this.mesh.position.z - this.victim.mesh.position.z;
-                    this.mesh.position.z -= Math.sign(deltaZ)*this.speed;a
+            var moveConstant = Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaZ);
+
+            this.mesh.position.x -= Math.sign(deltaX)*this.speed*(Math.abs(deltaX)/moveConstant);
+            this.mesh.position.y -= Math.sign(deltaY)*this.speed*(Math.abs(deltaY)/moveConstant);
+            this.mesh.position.z -= Math.sign(deltaZ)*this.speed*(Math.abs(deltaZ)/moveConstant);
+
+
+
         }
         
     }

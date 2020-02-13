@@ -8,7 +8,6 @@ TODO
 --player class fix it´s own mesh
 --make walls don´t collide with each other
 --shots starts from player but cannot kill self
---Seeker missiles should move in x y z with respect to deltas against victim
 
 
 BUGS
@@ -28,5 +27,7 @@ FIXED
 --shoot rate
 --npcs
 --improve collisionhandle with a/b interchangable to avaoid code duplication
+--Seeker missiles should move in x y z with respect to deltas against victim
+
 
 
