@@ -30,7 +30,6 @@ function check_collision(a, b){
              //check z
              if(a.mesh.position.z + (a.mesh.geometry.parameters.depth/2) > b.mesh.position.z - (b.mesh.geometry.parameters.depth / 2) && a.mesh.position.z- a.mesh.geometry.parameters.depth/2 < b.mesh.position.z + b.mesh.geometry.parameters.depth /2){
                  if(!(a instanceof wall || b instanceof wall)){
-                    console.log('collision! a:' + a.type  +  " b:" + b.type);
                  }
                     return true;
 
@@ -42,9 +41,9 @@ function check_collision(a, b){
      if(a.mesh.position.x + (a.mesh.geometry.parameters.width/2) > b.mesh.position.x - (b.mesh.geometry.parameters.width / 2) && a.mesh.position.x - a.mesh.geometry.parameters.width/2 < b.mesh.position.x + b.mesh.geometry.parameters.width /2){
              //check z
              if(a.mesh.position.z + (a.mesh.geometry.parameters.depth/2) > b.mesh.position.z - (b.mesh.geometry.parameters.depth / 2) && a.mesh.position.z- a.mesh.geometry.parameters.depth/2 < b.mesh.position.z + b.mesh.geometry.parameters.depth /2){
-                 if(!(a instanceof wall || b instanceof wall)){
-                    console.log('collision! a:' + a.type  +  " b:" + b.type);
-                 }
+                //  if(!(a instanceof wall || b instanceof wall)){
+                //     console.log('collision! a:' + a.type  +  " b:" + b.type);
+                //  }
                     return true;
 
              }
@@ -54,15 +53,16 @@ function check_collision(a, b){
  function handleCollision(a,b){
     let collisionHandled = false; //for checking if necessary to recall with a <-> b
     if(a instanceof shot){
-        if(b instanceof player){b.die(); collisionHandled = true;}
+        if(b instanceof player && a.firedBy != b){b.die(); collisionHandled = true;}
         if(b instanceof seeker){b.die(); a.die();collisionHandled = true;}
     } 
     if(a instanceof player){
-        if(b instanceof shot){a.die(); remove_from_game(b);collisionHandled = true;}
+        if(b instanceof shot && b.firedBy != a){a.die(); remove_from_game(b);collisionHandled = true;}
         if(b instanceof player){
             a.bounceBack(); b.bounceTo(a.direction); collisionHandled = true;  
         }
         if(b instanceof wall){a.moveBack(a.direction);collisionHandled = true;}
+        if(b instanceof seeker){a.die(); a.moveBack(a.direction); b.die(); collisionHandled = true;}
     } 
     if(a instanceof wall){
         if(b instanceof shot){remove_from_game(b);collisionHandled = true;}

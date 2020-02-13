@@ -76,13 +76,14 @@ class player {
         //     this.lastShot = Date.now();
         // }
     }
-    shoot(){
-        // if(this.lastShot>= this.shootRate){
-        //     shoot(this.mesh.position, this.direction);
-        //     this.lastShot = 0;
-        // }
-        if(Date.now() > (this.lastShot+this.shootRate)){
-            shoot(this.mesh.position, this.direction);
+    shoot(type){
+
+        if(type == 'basic' && Date.now() > (this.lastShot+this.shootRate)){
+            shoot(this.mesh.position, this.direction, this);
+            this.lastShot = Date.now();
+        }
+        else if(type == 'homing' && Date.now() > (this.lastShot+this.shootRate)){
+            shoot(this.mesh.position, this.direction, this);
             this.lastShot = Date.now();
         }
 
@@ -91,10 +92,45 @@ class player {
 
 class shot{
       
-    constructor(position, direction){
+    constructor(position, direction, shooterId){
         this.direction = direction;
         this.tag = 'shot';
         this.type = 'shot';
+        this.firedBy = shooterId;
+
+
+        this.speed = 0.5;
+        var shot_geometry = new THREE.BoxGeometry( .3, .3, .3 );
+        var shot_material = new THREE.MeshBasicMaterial( { color: "#00aa00" } );
+        this.mesh = new THREE.Mesh( shot_geometry, shot_material );
+        this.mesh.position.set(position.x, 0.5, position.z);
+        this.mesh.castShadow = true;
+        this.mesh.receiveShadow = true;
+    }
+    move(){
+        if(this.direction=='up'){
+            this.mesh.position.z-=this.speed;
+        }
+        if(this.direction=='down')
+            this.mesh.position.z+=this.speed;
+        if(this.direction=='left')
+            this.mesh.position.x-=this.speed;
+        if(this.direction=='right')
+            this.mesh.position.x+=this.speed;
+    }
+    die(){
+        remove_from_game(this);
+        console.log('i am dead ' + this.type);
+      }
+}
+class homingMissile{
+      
+    constructor(position, direction, shooterId, victim){
+        this.direction = direction;
+        this.tag = 'shot';
+        this.type = 'shot';
+        this.firedBy = shooterId;
+        this.victim = victim;
 
 
         this.speed = 0.5;
@@ -105,15 +141,15 @@ class shot{
         this.mesh.castShadow = true;
         this.mesh.receiveShadow = true;
 
-        if(direction=='up')
-            this.mesh.position.z-=1;
-        if(direction=='down')
-            this.mesh.position.z+=1;
-        if(direction=='left')
-            this.mesh.position.x-=1;
-        if(direction=='right')
-            this.mesh.position.x+=1;
-        this.move();
+        // if(direction=='up')
+        //     this.mesh.position.z-=1;
+        // if(direction=='down')
+        //     this.mesh.position.z+=1;
+        // if(direction=='left')
+        //     this.mesh.position.x-=1;
+        // if(direction=='right')
+        //     this.mesh.position.x+=1;
+       // this.move();
     }
     move(){
         if(this.direction=='up'){

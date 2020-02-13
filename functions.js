@@ -83,8 +83,8 @@ function cameraControl(){
     camera.position.x += detlaX*0.01;
     camera.position.z += detlaZ*0.01;
 }
-function shoot(position, direction){
-    var pshot = new shot(position, direction);
+function shoot(position, direction, shooterId){
+    var pshot = new shot(position, direction, shooterId);
     movingGameObjects.push(pshot);
     gameObjects.push(pshot);
     console.log(gameObjects);

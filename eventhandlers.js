@@ -5,25 +5,40 @@ document.addEventListener('keydown', function(event){
     else if (event.key=='a'){player1.move('left');}
     
     if (event.key == 'Enter'){
-        //shoot(player1.mesh.position, player1.direction);
-       //s player1.isShooting = true;
-        player1.shoot();
+        player1.shoot('basic');
+    }
+    if (event.key == 'Shift'){
+        player1.shoot('basic');
     }
 
     //Camera controls for troubleshoot 
+    // if (event.key == 'ArrowUp'){
+    //     camera.position.y +=0.5;
+    // }
+    // if (event.key == 'ArrowDown'){
+    //     camera.position.y -=0.5;
+    // }
+    // if (event.key == 'ArrowLeft'){
+    //     camera.position.z +=0.5;
+    // }
+    // if (event.key == 'ArrowRight'){
+    //     camera.position.z -=0.5;
+    // }
+    
+    //Temporary p2 controls
     if (event.key == 'ArrowUp'){
-        camera.position.y +=0.5;
+        player2.move('up');
     }
     if (event.key == 'ArrowDown'){
-        camera.position.y -=0.5;
+        player2.move('down');
     }
     if (event.key == 'ArrowLeft'){
-        camera.position.z +=0.5;
+        player2.move('left');
     }
     if (event.key == 'ArrowRight'){
-        camera.position.z -=0.5;
+        player2.move('right');
     }
-    camera.lookAt(0,0,0);
+
 } );
 
 document.addEventListener('keyup', function(event){

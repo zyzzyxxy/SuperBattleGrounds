@@ -7,13 +7,16 @@ TODO
 --pickups
 --player class fix it´s own mesh
 --make walls don´t collide with each other
+--shots starts from player but cannot kill self
 
 BUGS
---Seekers freeze after killing p2
+--Seekers freeze after killing p2 or p1 or another seeker dies... 
+--Something wrong with not removing graiphics but removing from moving array..
 --Seekers collisionhandle on spawn doesnt work, commented in seekers class
 
 IN PROGRESS
 --hud
+--Seeking missiles
 
 FIXED
 --mooving lights 
