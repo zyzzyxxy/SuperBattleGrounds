@@ -8,6 +8,7 @@ TODO
 --player class fix it´s own mesh
 --make walls don´t collide with each other
 --shots starts from player but cannot kill self
+--homingMissiles should rotate according to direction....
 
 
 BUGS

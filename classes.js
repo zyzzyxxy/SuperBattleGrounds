@@ -139,10 +139,10 @@ class homingMissile{
         this.victim = victim;
         this.isLaunching = true;
         this.homingHeight = 7;
+        this.qRotVal = 10;
 
-
-        this.speed = 0.1;
-        var shot_geometry = new THREE.BoxGeometry( 1.5, .4, .4 );
+        this.speed = 0.05;
+        var shot_geometry = new THREE.BoxGeometry( .5, 1.5, .5 );
         var shot_material = new THREE.MeshBasicMaterial( { color: "#FFa000" } );
         this.mesh = new THREE.Mesh( shot_geometry, shot_material );
         this.mesh.position.set(position.x, 0.5, position.z);
@@ -169,7 +169,23 @@ class homingMissile{
             this.mesh.position.x -= Math.sign(deltaX)*this.speed*(Math.abs(deltaX)/moveConstant);
             this.mesh.position.y -= Math.sign(deltaY)*this.speed*(Math.abs(deltaY)/moveConstant);
             this.mesh.position.z -= Math.sign(deltaZ)*this.speed*(Math.abs(deltaZ)/moveConstant);
+            
+            this.qRotVal-=0.1;
 
+            var v3 = new THREE.Vector3(deltaX, deltaY, deltaZ);
+            //v3 = v3.multiplyScalar(Math.PI/2);
+            //this.mesh.lookAt(v3);
+            
+
+            var axis = new THREE.Vector3(0, 1, 0);
+            this.mesh.quaternion.setFromUnitVectors(axis, v3.clone().normalize());
+
+            //var quaternion = new THREE.Quaternion().set( deltaX, deltaY, deltaZ, 0 ).normalize();
+
+            // var quaternion = new THREE.Quaternion();
+            // quaternion.setFromAxisAngle( v3, 0 );
+            // quaternion.normalize();
+            // this.mesh.setRotationFromQuaternion(quaternion);
 
 
         }
