@@ -121,3 +121,23 @@ function spawnSeeker(){
     movingGameObjects.push(seekr);
     scene.add(seekr.mesh);
 }
+
+function getClosestPlayer(position){
+    let distance = 1000000000;
+    let tempDistance;
+    let index = 0;
+    for(let i=0; i < playerArray.length; i++){
+        tempDistance = getXZDistance(position, playerArray[i].mesh.position);
+        if( tempDistance < distance){
+            distance = tempDistance;
+            index = i;
+        }
+    }
+    return playerArray[index];
+}
+
+function getXZDistance(pos1, pos2){
+    let deltaX = pos1.x - pos2.x;
+    let deltaZ = pos1.z - pos2.z;
+    return Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaZ,2));
+}

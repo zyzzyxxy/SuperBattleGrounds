@@ -81,6 +81,10 @@ spawnSeeker();
 // Add players to Scene
 gameObjects.push(player1);
 gameObjects.push(player2);
+playerArray.push(player1);
+playerArray.push(player2);
+
+
 scene.add( player2.mesh );
 
 //addsWalls from functions

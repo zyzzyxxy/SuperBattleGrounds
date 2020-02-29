@@ -173,20 +173,9 @@ class homingMissile{
             this.qRotVal-=0.1;
 
             var v3 = new THREE.Vector3(deltaX, deltaY, deltaZ);
-            //v3 = v3.multiplyScalar(Math.PI/2);
-            //this.mesh.lookAt(v3);
             
-
             var axis = new THREE.Vector3(0, 1, 0);
             this.mesh.quaternion.setFromUnitVectors(axis, v3.clone().normalize());
-
-            //var quaternion = new THREE.Quaternion().set( deltaX, deltaY, deltaZ, 0 ).normalize();
-
-            // var quaternion = new THREE.Quaternion();
-            // quaternion.setFromAxisAngle( v3, 0 );
-            // quaternion.normalize();
-            // this.mesh.setRotationFromQuaternion(quaternion);
-
 
         }
         
@@ -329,6 +318,9 @@ class seeker {
       console.log('I am shot ' + this.type + " lifes:"+ this.lifes)
       if(this.lifes==0){remove_from_game(this)}
     }
+    updateVictim(){
+       this.victim = getClosestPlayer(this.mesh.position);
+    }
     moveX(){        
         var deltaX = this.mesh.position.x - this.victim.mesh.position.x;
         this.mesh.position.x -= Math.sign(deltaX)*this.speed;
@@ -338,6 +330,7 @@ class seeker {
         this.mesh.position.z -= Math.sign(deltaZ)*this.speed;
     }
     move(){
+        this.updateVictim();
         this.moveX();
         this.moveZ();
         if(this.up){

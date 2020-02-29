@@ -5,6 +5,7 @@
 
 var movingGameObjects = []
 var gameObjects = []
+var playerArray = []
 let gameTime = 0;
 let gameStartTime = Date.now();
 
